@@ -5,15 +5,12 @@
 #include <unistd.h>
 #include <time.h>
 
-#define UP_ONE_DIR ".."
 #define FILE_NAME "test.txt"
 
 int main(int argc, char *argv[]) {
     struct timespec start;
     struct timespec stop;
     long int min = __INT_MAX__;
-    
-    char buf[1];
     
     for (;;) {
         // Open test file
