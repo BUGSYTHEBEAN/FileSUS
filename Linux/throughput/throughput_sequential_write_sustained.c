@@ -1,47 +1,52 @@
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
+#include <string.h>
 #include <sys/stat.h>
-#include <unistd.h>
+#include <sys/types.h>
 #include <time.h>
-#include <pthread.h>
+#include <unistd.h>
 
 #define FILE_NAME "test.txt"
-#define ONE_MEGABYTE 1000000
-#define ONE_SECOND 1000000000
-#define SECONDS 1800
+#define ONE_MEGABYTE (long int) 1000000
+#define ONE_SECOND (long int) 1000000000
+#define SECONDS 60
+#define BYTE_SIZE 1
 
 int main(int argc, char *argv[]) {
+    setbuf(stdout, NULL);
     struct timespec start;
     struct timespec stop;
+    time_t start_outer;
+    time_t stop_outer;
     long int max = 0;
     
+    char buf[BYTE_SIZE];
+    memset(buf, 69, BYTE_SIZE);
+
     for (;;) {
-        int bytes_written = 0;
+        int bytes_read = 0;
         time_t elapsed_time = 0;
         // Open test file
-        FILE* test_file = fopen(FILE_NAME, "a");
-        while (elapsed_time < (ONE_SECOND * SECONDS)) {
-            // Start clock
-            if (clock_gettime(CLOCK_REALTIME, &start) == -1) {
-                perror("Starting the clock failed");
+        FILE* test_file = fopen(FILE_NAME, "r");
+
+        start_outer = time(NULL);
+        for (;;) {
+            // Measure writing a (number of) byte(s) from the file
+            while (fwrite(buf, sizeof(char), BYTE_SIZE, test_file) == -1) {}
+            bytes_read += BYTE_SIZE;
+            stop_outer = time(NULL);
+            elapsed_time = difftime(stop_outer, start_outer);
+            if (elapsed_time >= (double) SECONDS) {
+                break;
             }
-            // Measure write a byte to the file
-            while (fputc(69, test_file) != 69) {}
-            // Stop clock
-            if (clock_gettime(CLOCK_REALTIME, &stop) == -1) {
-                perror("Stopping the clock failed");
-            }
-            bytes_written++;
-            elapsed_time += stop.tv_nsec - start.tv_nsec
         }
         // Close test file
         fclose(test_file);
-        if (bytes_written > max) {
-            max = bytes_written;
-            long double elapsed_time_seconds = (long double) elapsed_time / (long double) ONE_SECOND;
+        if (bytes_read > max) {
+            max = bytes_read;
             long double measured_data = (long double) max / (long double) ONE_MEGABYTE;
-            printf("Measured throughput in MB/s: %lf\n", measured_data / elapsed_time_seconds);
+            printf("Measured throughput in MB/s: %Lf\n", measured_data / (long double) SECONDS);
         }
     }
 }

@@ -1,9 +1,9 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <time.h>
+#include <unistd.h>
 
 #define UP_ONE_DIR ".."
 #define DIR_NAME "test"

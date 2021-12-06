@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
+#include <sys/types.h>
 #include <time.h>
+#include <unistd.h>
 
 #define FILE_NAME "test.txt"
 
@@ -15,6 +15,8 @@ int main(int argc, char *argv[]) {
     struct timespec start;
     struct timespec stop;
     long int min = __INT_MAX__;
+
+    char buf[1];
 
     for (;;) {
         // Open test file

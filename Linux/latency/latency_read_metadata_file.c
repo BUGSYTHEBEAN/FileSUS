@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
+#include <sys/types.h>
 #include <time.h>
+#include <unistd.h>
 
 #define FILE_NAME "test.txt"
 
@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
             perror("Starting the clock failed");
         }
         // Measure reading file metadata
-        while (stat(FILE_NAME, &sb) != -1) {}
+        while (stat(FILE_NAME, &sb) == -1) {}
         // Stop clock
         if (clock_gettime(CLOCK_REALTIME, &stop) == -1) {
             perror("Stopping the clock failed");
