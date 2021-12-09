@@ -1,50 +1,28 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <time.h>
 
-#define BASE_DIR "../../../../.."
+#define BASE_DIR "../../../../../../../../../../../../../../../"
 #define DIR_ONE "test/"
-#define DIR_TWO "next/"
-#define DIR_THREE "then/"
-#define DIR_FOUR "again/"
-#define DIR_FIVE "last/"
-#define FULL_DIR DIR_ONE DIR_TWO DIR_THREE DIR_FOUR DIR_FIVE
+#define FULL_DIR DIR_ONE "1/2/3/4/5/6/7/8/9/10/11/12/13/14"
+#define F_OK 0
 
 int main(int argc, char *argv[]) {
     if (access(FULL_DIR, F_OK)) {
         rmdir(DIR_ONE);
-        if (mkdir(DIR_ONE, 0777) == -1) {
-            printf("Error making directory 1\n");
-            exit(1);
-        }
-        if (mkdir(DIR_ONE DIR_TWO, 0777) == -1) {
-            printf("Error making directory 2\n");
-            exit(1);
-        }
-        if (mkdir(DIR_ONE DIR_TWO DIR_THREE, 0777) == -1) {
-            printf("Error making directory 3\n");
-            exit(1);
-        }
-        if (mkdir(DIR_ONE DIR_TWO DIR_THREE DIR_FOUR, 0777) == -1) {
-            printf("Error making directory 4\n");
-            exit(1);
-        }
-        if (mkdir(DIR_ONE DIR_TWO DIR_THREE DIR_FOUR DIR_FIVE, 0777) == -1) {
-            printf("Error making directory 5\n");
-            exit(1);
-        }
+        system("mkdir -p " FULL_DIR);
     }
     struct timespec start;
     struct timespec stop;
-    long int min = __INT_MAX__;
+    long int min = 1000000;
     
     for (;;) {
         // Start clock
-        if (clock_gettime(CLOCK_REALTIME, &start) == -1) {
-            perror("Starting the clock failed");
+        if(timespec_get(&start, TIME_UTC) != TIME_UTC){
+            exit(1);
+            //error
         }
         // Change directory to newly created one
         if (chdir(FULL_DIR) != 0) {
@@ -52,8 +30,9 @@ int main(int argc, char *argv[]) {
             exit(1);
         }
         
-        if (clock_gettime(CLOCK_REALTIME, &stop) == -1) {
-            perror("Stopping the clock failed");
+        if(timespec_get(&stop, TIME_UTC) != TIME_UTC){
+            exit(1);
+            //error
         }
         // Go back up
         if (chdir(BASE_DIR) != 0) {

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
@@ -20,7 +19,6 @@ int main(int argc, char *argv[]) {
     long int max = 0;
     
     char buf[BYTE_SIZE];
-    memset(buf, 69, BYTE_SIZE);
 
     for (;;) {
         int bytes_read = 0;
@@ -30,8 +28,8 @@ int main(int argc, char *argv[]) {
 
         start_outer = time(NULL);
         for (;;) {
-            // Measure writing a (number of) byte(s) from the file
-            while (fwrite(buf, sizeof(char), BYTE_SIZE, test_file) == -1) {}
+            // Measure reading a (number of) byte(s) from the file
+            while (fread(buf, sizeof(char), BYTE_SIZE, test_file) == -1) {}
             bytes_read += BYTE_SIZE;
             stop_outer = time(NULL);
             elapsed_time = difftime(stop_outer, start_outer);

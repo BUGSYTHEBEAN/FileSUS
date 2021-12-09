@@ -1,47 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <stdio.h>
-#include <io.h>
-#include <process.h>
-#include <stdlib.h>
 #include <time.h>
 
 #define UP_ONE_DIR ".."
-#define DIR_NAME "test"
-#define F_OK 0
+#define FILE_NAME "test.txt"
 
 int main(int argc, char *argv[]) {
-    if (access(DIR_NAME, F_OK)) {
-        if (mkdir(DIR_NAME, 0777) == -1) {
-            printf("Error making directory\n");
-            exit(1);
-        }
-    }
+    FILE* fd = fopen(FILE_NAME, "w");
+    fputc(69, fd);
+    fputc(69, fd);
+    fclose(fd);
+
     struct timespec start;
     struct timespec stop;
-    long int min = 100000;
+    long int min = 1000000;
     
+    char buf[1];
+
     for (;;) {
+        // Open test file
+        FILE* test_file = fopen(FILE_NAME, "r");
+        
+        while (fread(buf, 1, 1, test_file) != 1) {}// read first byte
         // Start clock
         if(timespec_get(&start, TIME_UTC) != TIME_UTC){
             exit(1);
             //error
         }
-        // Change directory to newly created one
-        if (chdir(DIR_NAME) != 0) {
-            perror("cd failed");
-            exit(1);
-        }
+        // Measure reading a byte from the file
         
+        while (fread(buf, 1, 1, test_file) != 1) {} // read sec byte
+        // Stop clock
         if(timespec_get(&stop, TIME_UTC) != TIME_UTC){
             exit(1);
             //error
         }
-        // Go back up
-        if (chdir(UP_ONE_DIR) != 0) {
-            perror("cd failed");
-            exit(1);
-        }
+        // Close test file
+        fclose(test_file);
         long int current = stop.tv_nsec - start.tv_nsec;
         if (current < min && current > 0) {
             min = current;

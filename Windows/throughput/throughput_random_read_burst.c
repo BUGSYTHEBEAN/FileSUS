@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
@@ -8,8 +7,9 @@
 #define FILE_NAME "test.txt"
 #define ONE_MEGABYTE (long int) 1000000
 #define ONE_SECOND (long int) 1000000000
-#define SECONDS 60
-#define BYTE_SIZE 1
+#define SECONDS 1
+#define BYTE_SIZE 1024
+#define F_OK 0
 
 int main(int argc, char *argv[]) {
     setbuf(stdout, NULL);
@@ -20,18 +20,22 @@ int main(int argc, char *argv[]) {
     long int max = 0;
     
     char buf[BYTE_SIZE];
-    memset(buf, 69, BYTE_SIZE);
 
     for (;;) {
         int bytes_read = 0;
         time_t elapsed_time = 0;
         // Open test file
         FILE* test_file = fopen(FILE_NAME, "r");
+        fseek(test_file, 0L, SEEK_END);
+        size_t size = ftell(test_file);
+        rewind(test_file);
 
         start_outer = time(NULL);
         for (;;) {
-            // Measure writing a (number of) byte(s) from the file
-            while (fwrite(buf, sizeof(char), BYTE_SIZE, test_file) == -1) {}
+            int random_pos = rand() % size;
+            fseek(test_file, random_pos, SEEK_SET);
+            // Measure reading a (number of) byte(s) from the file
+            while (fread(buf, sizeof(char), BYTE_SIZE, test_file) == -1) {}
             bytes_read += BYTE_SIZE;
             stop_outer = time(NULL);
             elapsed_time = difftime(stop_outer, start_outer);
