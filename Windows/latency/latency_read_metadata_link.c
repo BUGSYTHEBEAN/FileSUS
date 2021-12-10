@@ -4,36 +4,28 @@
 #include <sys/types.h>
 #include <time.h>
 
-#define BASE_DIR "../../../../../../../../../../../../../../../"
-#define DIR_ONE "test/"
-#define FULL_DIR DIR_ONE "1/2/3/4/5/6/7/8/9/10/11/12/13/14"
-#define F_OK 0
+#define FILE_NAME "test.txt"
+#define LINK_NAME "symlink.txt"
 
 int main(int argc, char *argv[]) {
     struct timespec start;
     struct timespec stop;
     long int min = 1000000;
-    
+    struct stat sb;
+    #define F_OK 0
+
     for (;;) {
         // Start clock
         if(timespec_get(&start, TIME_UTC) != TIME_UTC){
             exit(1);
             //error
         }
-        // Change directory to newly created one
-        if (chdir(FULL_DIR) != 0) {
-            perror("cd failed");
-            exit(1);
-        }
-        
+        // Measure reading link metadata
+        while (stat(LINK_NAME, &sb) == -1) {}
+        // Stop clock
         if(timespec_get(&stop, TIME_UTC) != TIME_UTC){
             exit(1);
             //error
-        }
-        // Go back up
-        if (chdir(BASE_DIR) != 0) {
-            perror("cd back failed");
-            exit(1);
         }
         long int current = stop.tv_nsec - start.tv_nsec;
         if (current < min && current > 0) {

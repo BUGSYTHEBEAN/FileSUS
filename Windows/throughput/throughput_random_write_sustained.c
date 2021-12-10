@@ -8,8 +8,8 @@
 #define FILE_NAME "test.txt"
 #define ONE_MEGABYTE (long int) 1000000
 #define ONE_SECOND (long int) 1000000000
-#define SECONDS 1
-#define BYTE_SIZE 1
+#define SECONDS 60
+#define BYTE_SIZE 1024
 
 int main(int argc, char *argv[]) {
     setbuf(stdout, NULL);
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         int bytes_read = 0;
         time_t elapsed_time = 0;
         // Open test file
-        FILE* test_file = fopen(FILE_NAME, "w");
+        FILE* test_file = fopen(FILE_NAME, "r");
         fseek(test_file, 0L, SEEK_END);
         size_t size = ftell(test_file);
         rewind(test_file);

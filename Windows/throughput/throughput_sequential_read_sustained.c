@@ -7,8 +7,8 @@
 #define FILE_NAME "test.txt"
 #define ONE_MEGABYTE (long int) 1000000
 #define ONE_SECOND (long int) 1000000000
-#define SECONDS 60
-#define BYTE_SIZE 1
+#define SECONDS 10
+#define BYTE_SIZE 1024
 
 int main(int argc, char *argv[]) {
     setbuf(stdout, NULL);

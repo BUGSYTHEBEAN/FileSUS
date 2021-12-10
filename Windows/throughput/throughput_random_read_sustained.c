@@ -8,7 +8,7 @@
 #define ONE_MEGABYTE (long int) 1000000
 #define ONE_SECOND (long int) 1000000000
 #define SECONDS 60
-#define BYTE_SIZE 1
+#define BYTE_SIZE 1024
 
 int main(int argc, char *argv[]) {
     setbuf(stdout, NULL);
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 
         start_outer = time(NULL);
         for (;;) {
-            int random_pos = rand() % size;
+            int random_pos = rand();
             fseek(test_file, random_pos, SEEK_SET);
             // Measure reading a (number of) byte(s) from the file
             while (fread(buf, sizeof(char), BYTE_SIZE, test_file) == -1) {}
