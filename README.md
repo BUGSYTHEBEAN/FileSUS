@@ -1,5 +1,5 @@
 # FileSUS
-**File S**ystem **U**niversal Test **S**uite
+<span style="color:red">**File S**</span>ystem <span style="color:red">**U**</span>niversal Test <span style="color:red">**S**</span>uite
 
 Created at UW-Madison for CS 736—Advanced Operating Systems—by [Andrei Freund](https://github.com/BUGSYTHEBEAN) and [Natan Lidukhover](https://github.com/natanlidukhover)
 
