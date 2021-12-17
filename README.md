@@ -7,10 +7,11 @@ A tool to benchmark file systems that runs natively on Windows and Linux. We ben
 
 # Results
 ## Throughput (MB/s)
-![image](https://user-images.githubusercontent.com/16845012/145524013-cfe0005f-5bea-4bf8-ab6a-9fc361850481.png)
+![image](https://user-images.githubusercontent.com/16845012/146504379-7bfb5a67-e3ec-435b-9233-3d980f570e0b.png)
 ## Throughput at Different Payload Sizes
-![image](https://user-images.githubusercontent.com/16845012/145524046-d76ea2a9-5b69-487c-ab7d-495df70f882d.png)
-![image](https://user-images.githubusercontent.com/16845012/145524063-6175774a-1b4a-412e-b824-ccb6a86213a8.png)
+![image](https://user-images.githubusercontent.com/16845012/146504416-1059ce29-91e1-4339-98b4-658a4c947cb8.png)
+![image](https://user-images.githubusercontent.com/16845012/146504450-7c0147e4-5621-4f07-9031-421c8fb29521.png)
 ## Latency (nanoseconds)
-![image](https://user-images.githubusercontent.com/16845012/145524090-d6160844-ccf6-4324-8e64-d5ea92dd0cc8.png)
-![image](https://user-images.githubusercontent.com/16845012/145524129-c1ce4740-dc07-4afb-bd7c-f5c99f5d385e.png)
+![image](https://user-images.githubusercontent.com/16845012/146504545-f0f6978d-c89e-4562-9755-b897dd614291.png)
+![image](https://user-images.githubusercontent.com/16845012/146504582-3f76a551-76e7-4ab9-9f67-5a631c72d67e.png)
+
