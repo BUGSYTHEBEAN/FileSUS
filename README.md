@@ -1,5 +1,5 @@
 # FileSUS
-File System Universal test Suite
+**File System Universal** Test **Suite**
 
 Created at UW-Madison, CS 736 by [Andrei Freund](https://github.com/BUGSYTHEBEAN) and [Natan Lidukhover](https://github.com/natanlidukhover)
 
