@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
         int bytes_read = 0;
         time_t elapsed_time = 0;
         // Open test file
-        FILE* test_file = fopen(FILE_NAME, "r");
+        FILE* test_file = fopen(FILE_NAME, "w");
 
         start_outer = time(NULL);
         for (;;) {
