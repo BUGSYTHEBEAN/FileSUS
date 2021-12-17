@@ -28,14 +28,14 @@ int main(int argc, char *argv[]) {
         int bytes_read = 0;
         time_t elapsed_time = 0;
         // Open test file
-        FILE* test_file = fopen(FILE_NAME, "r");
+        FILE* test_file = fopen(FILE_NAME, "w");
         fseek(test_file, 0L, SEEK_END);
         size_t size = ftell(test_file);
         rewind(test_file);
 
         start_outer = time(NULL);
         for (;;) {
-            int random_pos = rand() % size;
+            int random_pos = rand();
             fseek(test_file, random_pos, SEEK_SET);
             // Measure writing a (number of) byte(s) from the file
             while (fwrite(buf, sizeof(char), BYTE_SIZE, test_file) == -1) {}
