@@ -1,7 +1,7 @@
 # FileSUS
-**File System Universal** Test **Suite**
+**File S**ystem **U**niversal Test **S**uite
 
-Created at UW-Madison, CS 736 by [Andrei Freund](https://github.com/BUGSYTHEBEAN) and [Natan Lidukhover](https://github.com/natanlidukhover)
+Created at UW-Madison for CS 736—Advanced Operating Systems—by [Andrei Freund](https://github.com/BUGSYTHEBEAN) and [Natan Lidukhover](https://github.com/natanlidukhover)
 
 A tool to benchmark file systems that runs natively on Windows and Linux. We benchmarked Windows 11’s implementation of NTFS and Linux’s ext4 on the same machine to reveal the relative performance and best use cases for each file system. We find that ext4 has universally lower latency by an order of magnitude, two to five times faster write throughput and faster read throughput at payload sizes lower than 4KB.
 
